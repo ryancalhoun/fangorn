@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'rubygems'
+  gem 'emplace'
+rescue LoadError
+end
+
+require 'fangorn/app'
+Fangorn::App.new.run
