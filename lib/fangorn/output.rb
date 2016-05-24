@@ -33,7 +33,7 @@ module Fangorn
     end
   
     def self.dest
-      @@dest
+      @@dest || (@@dist ? 'dist' : 'public')
     end
 
     def self.dist!
@@ -50,7 +50,7 @@ module Fangorn
 
     @@dist = false
     @@source = 'app'
-    @@dest = 'public'
+    @@dest = nil
   end
 end
 

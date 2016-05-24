@@ -1,6 +1,6 @@
 Gem::Specification.new {|s|
 	s.name = 'fangorn'
-	s.version = '0.0.1'
+	s.version = '0.0.3'
 	s.licenses = ['MIT']
 	s.summary = 'Haml + Sass + Javascript'
 	s.description = 'Asset compiler for front-end assets.'
@@ -11,5 +11,9 @@ Gem::Specification.new {|s|
 	s.files = Dir["{bin,lib}/**/*"] + %w(LICENSE README.md)
 
   s.executables = s.files.grep(/^bin\//).map {|f| File.basename f}
+
+  s.add_runtime_dependency 'listen', '~> 3', '>= 3'
+  s.add_runtime_dependency 'haml', '~> 4', '>= 4'
+  s.add_runtime_dependency 'sass', '~> 3', '>= 3'
 }
 

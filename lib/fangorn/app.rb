@@ -16,6 +16,9 @@ module Fangorn
             Haml::SCRIPT_SOURCES[m[1]] = m[2]
           end
         end
+        opts.on('-d', '--dist', 'Compile a distribution package') do
+          Output::dist!
+        end
       end
 
       begin

@@ -1,10 +1,9 @@
 module Fangorn
   class Js < Output
-    APPLICATION_JS = File.join Output::dest, 'js', 'application.js'
     @@cleaned = false
 
     def initialize(input)
-      output = Output::dist? ? APPLICATION_JS : File.join(Output::dest?, input.sub(File.join(Output::source, ''), ''))
+      output = Output::dist? ? application_js : File.join(Output::dest?, input.sub(File.join(Output::source, ''), ''))
       super input, output
     end
 
@@ -18,6 +17,9 @@ module Fangorn
         f.write File.read(@input) 
         f.puts if Output::dist?
       end
+    end
+    def application_js
+      File.join Output::dest, 'js', 'application.js'
     end
   end
 end
