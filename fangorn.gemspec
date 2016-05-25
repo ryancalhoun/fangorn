@@ -1,6 +1,6 @@
 Gem::Specification.new {|s|
 	s.name = 'fangorn'
-	s.version = '0.0.3'
+	s.version = '0.0.4'
 	s.licenses = ['MIT']
 	s.summary = 'Haml + Sass + Javascript'
 	s.description = 'Asset compiler for front-end assets.'

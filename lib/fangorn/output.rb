@@ -29,11 +29,11 @@ module Fangorn
     end
 
     def self.source
-      @@source
+      File.absolute_path(@@source)
     end
   
     def self.dest
-      @@dest || (@@dist ? 'dist' : 'public')
+      File.absolute_path(@@dest || (@@dist ? 'dist' : 'public'))
     end
 
     def self.dist!
