@@ -58,6 +58,12 @@ module Fangorn
           modified += Dir[File.join(Output::source, '**/*.haml')]
         end
 
+        mixins, modified = modified.partition {|m| File.basename(m) =~ /^_.+.sass$/}
+        puts "MIXINS #{mixins}"
+        unless mixins.empty?
+          modified += Dir[File.join(Output::source, '**/[^_]*.sass')]
+        end
+
         ordered(modified + added).each do |input|
           if output = Output.make(input)
             begin

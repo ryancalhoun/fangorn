@@ -16,7 +16,7 @@ module Fangorn
 
       File.open(@output, Output::dist? ? 'a' : 'w') do |f|
         f.puts "/* #{@input} */"
-        f.write ::Sass::Engine.new(File.read(@input)).render
+        f.write ::Sass::Engine.new(File.read(@input), load_paths: [File.dirname(@input)]).render
         f.puts
       end
     end
