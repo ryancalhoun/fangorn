@@ -1,10 +1,13 @@
 require 'haml'
+require 'securerandom'
 
 module Fangorn
   class Haml < Output
     ::Haml::Options.defaults[:format] = :html5
 
     SCRIPT_SOURCES = {}
+
+    CACHE_BREAK = SecureRandom.hex(4)
 
     def initialize(input)
       super input, File.join(Output::dest, input.sub(File.join(Output::source, ''), '').sub(/\.haml$/, ''))
@@ -18,7 +21,7 @@ module Fangorn
     end
 
     def css_include(file)
-      ::Haml::Engine.new("%link{ rel: 'stylesheet', type: 'text/css', href: '#{file}' }").render
+      ::Haml::Engine.new("%link{ rel: 'stylesheet', type: 'text/css', href: '#{cache_update file}' }").render
     end
 
     def css_include_tree(dir)
@@ -39,12 +42,16 @@ module Fangorn
           break
         end
       end
-      ::Haml::Engine.new("%script{ src: '#{file}' }").render
+      ::Haml::Engine.new("%script{ src: '#{cache_update file}' }").render
     end
     def js_include_tree(dir)
       Dir[File.join(Output::dest, dir, '**', '*.js')].sort_by(&:length).map do |file|
         js_include file.sub File.join(Output::dest, ''), ''
       end.join
+    end
+
+    def cache_update(file)
+      file + "?p=" + CACHE_BREAK
     end
   end
 end

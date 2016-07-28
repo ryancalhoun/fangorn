@@ -31,7 +31,7 @@ module Fangorn
 
       if @serve
         puts "Watching #{Output::source}"
-        listener = Listen.to(Output::source, :filter => /\.(haml|sass|js|ico|jpg)$/, &update)
+        listener = Listen.to(Output::source, :filter => /\.(haml|sass|js|ico|jpg|ttf)$/, &update)
         listener.start
 
         puts 'Starting server on port 8080'
@@ -41,7 +41,7 @@ module Fangorn
         server.start
       else
         puts "Updating #{Output::source}"
-        update[Dir[File.join(Output::source, '**/*.{haml,sass,js,ico,jpg}')], [], []]
+        update[Dir[File.join(Output::source, '**/*.{haml,sass,js,ico,jpg,ttf}')], [], []]
       end
     end
     def report(type, input, output)
