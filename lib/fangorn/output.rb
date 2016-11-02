@@ -28,6 +28,10 @@ module Fangorn
       @@dist
     end
 
+    def self.env
+      @@env
+    end
+
     def self.source
       File.absolute_path(@@source)
     end
@@ -48,9 +52,14 @@ module Fangorn
       @@dest = dest
     end
 
+    def self.env= (env)
+      @@env = env
+    end
+
     @@dist = false
     @@source = 'app'
     @@dest = nil
+    @@env = 'default'
   end
 end
 

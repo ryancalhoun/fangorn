@@ -19,6 +19,12 @@ module Fangorn
         opts.on('-d', '--dist', 'Compile a distribution package') do
           Output::dist!
         end
+        opts.on('-D', '--dest=DIR', 'dest dir') do |dir|
+          Output::dest = dir
+        end
+        opts.on('-e', '--env=ENV', 'Use environment name with fangorn.yml settings') do |env|
+          Output::env = env
+        end
       end
 
       begin
