@@ -25,8 +25,17 @@ module Fangorn
           end
         end
 
-        f.write contents
-        f.puts if Output::dist?
+        if Output::dist?
+          open("| uglifyjs", 'w+') do |uglifyjs|
+            uglifyjs.write contents
+            uglifyjs.close_write
+            f.puts uglifyjs.read
+          end
+
+        else
+          f.write contents
+        end
+
       end
     end
     def application_js
