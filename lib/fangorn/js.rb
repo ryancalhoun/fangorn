@@ -1,6 +1,9 @@
 require 'yaml'
+require 'securerandom'
 module Fangorn
   class Js < Output
+
+    CACHE_BREAK = SecureRandom.hex(4)
     @@cleaned = false
 
     def initialize(input)
@@ -24,6 +27,7 @@ module Fangorn
             contents.gsub!("${#{key}}", val.to_s)
           end
         end
+        contents.gsub!(/(templateUrl:\s*["'])([^'"]+)(['"])/, "\\1\\2?q=#{CACHE_BREAK}\\3")
 
         if Output::dist?
           open("| uglifyjs", 'w+') do |uglifyjs|
