@@ -38,7 +38,7 @@ module Fangorn
 
     def css_include_tree(dir)
       Dir[File.join(Output::dest, dir, '**', '*.css')].map do |file|
-        css_include file.sub File.join(Output::dest, ''), ''
+        css_include file.sub File.join(Output::dest, ''), (dir[0] == '/' ? '/' : '')
       end.join
     end
 
@@ -48,7 +48,7 @@ module Fangorn
     end
     def js_include_tree(dir)
       Dir[File.join(Output::dest, dir, '**', '*.js')].sort_by(&:length).map do |file|
-        js_include file.sub File.join(Output::dest, ''), ''
+        js_include file.sub File.join(Output::dest, ''), (dir[0] == '/' ? '/' : '')
       end.join
     end
 
