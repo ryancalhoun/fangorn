@@ -16,7 +16,7 @@ module Fangorn
     protected
     def create_command
       File.open(@output, 'w') do |f|
-        f.write ::Haml::Engine.new(File.read(@input)).render self
+        f.write ::Haml::Engine.new(File.read(@input)).render self, get_config
       end
     end
 

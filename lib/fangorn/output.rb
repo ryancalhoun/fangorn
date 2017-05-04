@@ -4,6 +4,7 @@ module Fangorn
   class Output
     def initialize(input, output)
       @input, @output = input, output
+      @config = YAML.load_file 'fangorn.yml'
     end
     def create!
       FileUtils.mkdir_p File.dirname(@output)
@@ -14,6 +15,11 @@ module Fangorn
     end
     def to_s
       @output
+    end
+    def get_config
+      if @config
+        @config[Output::env]
+      end
     end
     def self.make(input)
       type = File.extname(input)[1..-1]

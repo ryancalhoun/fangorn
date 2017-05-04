@@ -9,8 +9,6 @@ module Fangorn
     def initialize(input)
       output = Output::dist? ? application_js : File.join(Output::dest, input.sub(File.join(Output::source, ''), ''))
       super input, output
-
-      @config = YAML.load_file 'fangorn.yml'
     end
 
     protected
@@ -44,12 +42,6 @@ module Fangorn
     end
     def application_js
       File.join Output::dest, 'js', 'application.js'
-    end
-
-    def get_config
-      if @config
-        @config[Output::env]
-      end
     end
   end
 end
