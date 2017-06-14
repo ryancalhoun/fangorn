@@ -54,7 +54,7 @@ module Fangorn
 
     def copy_file(file)
       SCRIPT_SOURCES.each do |refdir, sourcedir|
-        src = file.sub /^#{refdir}\//, "#{sourcedir}/"
+        src = file.sub /^\/?#{refdir}\//, "#{sourcedir}/"
         if File.exists? src
           out = File.join(Output::dest, file)
           FileUtils.mkdir_p File.dirname(out)
