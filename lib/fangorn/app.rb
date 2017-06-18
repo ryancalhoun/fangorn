@@ -6,6 +6,9 @@ require_relative 'output'
 
 module Fangorn
   class App
+    def initialize
+      @port = 8080
+    end
     def run
       options = OptionParser.new do |opts|
         opts.on('-s', '--serve', 'Watch source files for change, and serve compiled results') do
@@ -25,6 +28,9 @@ module Fangorn
         opts.on('-e', '--env=ENV', 'Use environment name with fangorn.yml settings') do |env|
           Output::env = env
         end
+        opts.on('-p', '--port=PORT', /^\d+$/, 'Serve on port [8080]') do |port|
+          @port = port.to_i
+        end
       end
 
       begin
@@ -40,8 +46,8 @@ module Fangorn
         listener = Listen.to(Output::source, :filter => /\.(haml|sass|js|ico|jpg|png|ttf)$/, &update)
         listener.start
 
-        puts 'Starting server on port 8080'
-        server = WEBrick::HTTPServer.new Port: 8080
+        puts "Starting server on port #{@port}"
+        server = WEBrick::HTTPServer.new Port: @port
         server.mount '/', NoCacheFileHandler, Output::dest
         trap('INT') { server.stop }
         server.start
