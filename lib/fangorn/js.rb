@@ -1,5 +1,7 @@
 require 'yaml'
 require 'securerandom'
+require 'uglifier'
+
 module Fangorn
   class Js < Output
 
@@ -28,12 +30,7 @@ module Fangorn
         contents.gsub!(/(templateUrl:\s*["'])([^'"]+)(['"])/, "\\1\\2?q=#{CACHE_BREAK}\\3")
 
         if Output::dist?
-          open("| uglifyjs", 'w+') do |uglifyjs|
-            uglifyjs.write contents
-            uglifyjs.close_write
-            f.puts uglifyjs.read
-          end
-
+          f.puts Uglifier.compile(contents)
         else
           f.write contents
         end
